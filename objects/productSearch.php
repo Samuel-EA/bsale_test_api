@@ -1,5 +1,5 @@
 <?php
-class Paginator{
+class Product{
  
     // database connection and table name
     private $conn;
@@ -15,20 +15,22 @@ class Paginator{
     private $last;
     private $start;
     private $end;
+    private $search;
  
     // constructor with $db as database connection
-    public function __construct($db,$table,$records = 25,$page = 1){
+    public function __construct($db,$table,$records = 25,$page = 1, $search){
         $this->conn = $db;
         $this->table_name = $table;
         $this->records = $records;
         $this->page = $page;
+        $this->search = $search;
     }
 
     // get product
-    function paginate(){
+    function searchProduct(){
 
         $countquery = "SELECT COUNT(id) AS total
-        FROM " . $this->table_name;
+        FROM " . $this->table_name . " WHERE name LIKE '%".$this->search."%'";
 
         // prepare query
         $stmt = $this->conn->prepare($countquery);
@@ -45,13 +47,13 @@ class Paginator{
 
         // query to get record
         $query = "SELECT *
-                FROM " . $this->table_name . "
+                FROM " . $this->table_name . "  WHERE
+                name LIKE '%".$this->search."%'
                 ORDER BY name DESC
                 LIMIT ". $this->limit.",".$this->records;
 
         // prepare query
         $stmt = $this->conn->prepare($query);
-
 
         $this->first = 1;
         $this->previous = $this->page>1?$this->page-1:1;
@@ -92,7 +94,7 @@ class Paginator{
 				$this->start=1;
 
         // execute query
-        if($stmt->execute()){
+        if($stmt->execute() && $this->search != "" && $this->search != null){
             $data = $stmt->fetchall(PDO::FETCH_ASSOC);
             $rawdata = array( "data" => $data,  
                               "records" => $this->records, 

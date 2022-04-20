@@ -10,7 +10,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 include_once '../config/database.php';
  
 // instantiate paginator object
-include_once '../objects/paginator.php';
+include_once '../objects/productsById.php';
 
 $database = new DatabaseBsale();
 $db = $database->getConnection();
@@ -25,9 +25,9 @@ if(
     !empty($data) &&
     $data != null
 ){
-    $getProductsAttempt = new Paginator($db,"product",$data->records,$data->page);
-    // set sale id
-    $result = $getProductsAttempt->paginate();
+    $getProductsAttempt = new Product($db,"product",$data->records,$data->page,$data->category);
+    
+    $result = $getProductsAttempt->getProductsById();
 
     // save the code
     if(!isset($result["error"])){
