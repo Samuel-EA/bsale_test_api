@@ -25,9 +25,8 @@ class Category{
 
         // execute query
         if($stmt->execute()){
-            $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            $rawdata = array( "id" => $data['id'],  
-                              "name" => $data['name']);
+            $data = $stmt->fetchall(PDO::FETCH_ASSOC);
+            $rawdata = array( "data" => $data);
             return json_encode($rawdata);
         }
         

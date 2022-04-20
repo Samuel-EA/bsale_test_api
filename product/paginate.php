@@ -9,7 +9,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // get database connection
 include_once '../config/database.php';
  
-// instantiate openpay object
+// instantiate paginator object
 include_once '../objects/paginator.php';
 
 $database = new DatabaseBsale();
