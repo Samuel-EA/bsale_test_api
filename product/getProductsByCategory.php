@@ -9,8 +9,8 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // import database connection
 require_once '../config/database.php';
  
-// import paginator object
-require_once '../objects/product.php';
+// import productsByCategory object
+require_once '../objects/productsByCategory.php';
 
 // import AUTH_KEY object
 require_once '../resources/OAuthSimulation.php';
@@ -21,7 +21,7 @@ $db = $database->getConnection();
 
 //get AUTH_KEY
 if(isset($_SERVER['HTTP_AUTH_KEY'])){
-$headerAuthKey = $_SERVER['HTTP_AUTH_KEY'];
+    $headerAuthKey = $_SERVER['HTTP_AUTH_KEY'];
 }else{
     $headerAuthKey = "";
 }
@@ -36,7 +36,7 @@ if(!$OAuthSimulation->validateAuthKey()){
  
     // tell the user
     echo json_encode(array("error" => "Unauthorized request"));
-}else{
+} else {
     // get posted data
     $data = json_decode(file_get_contents("php://input"));
     // $data = file_get_contents("php://input");
@@ -46,9 +46,9 @@ if(!$OAuthSimulation->validateAuthKey()){
         !empty($data) &&
         $data != null
     ){
-        $getProductsAttempt = new Product($db,"product",$data->records,$data->page);
-        // set sale id
-        $result = $getProductsAttempt->getAllProducts();
+        $getProductsByCategoryAttempt = new Product($db,"product",$data->records,$data->page,$data->category);
+        
+        $result = $getProductsByCategoryAttempt->getProductsByCategory();
 
         // return response
         if(!isset($result["error"])){
@@ -58,8 +58,7 @@ if(!$OAuthSimulation->validateAuthKey()){
                 // tell the user
                 echo json_encode($result);
         }
-    
-        // if unable to get response code, tell the user
+        // if unable to get response, tell the user
         else{
     
             // set response code - 503 service unavailable

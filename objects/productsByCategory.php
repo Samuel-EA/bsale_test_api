@@ -27,7 +27,7 @@ class Product{
     }
 
     // get product
-    function getProductsById(){
+    function getProductsByCategory(){
 
         $countquery = "SELECT COUNT(id) AS total
         FROM " . $this->table_name . " WHERE category = " . $this->categoryId;

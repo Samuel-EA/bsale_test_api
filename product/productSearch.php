@@ -4,19 +4,40 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Auth-Key");
  
-// get database connection
-include_once '../config/database.php';
+// import database connection
+require_once '../config/database.php';
  
-// instantiate paginator object
-include_once '../objects/productSearch.php';
+// import search object
+require_once '../objects/productSearch.php';
 
+// import AUTH_KEY object
+require_once '../resources/OAuthSimulation.php';
+
+//instantiate database connection
 $database = new DatabaseBsale();
 $db = $database->getConnection();
 
+//get AUTH_KEY
+if(isset($_SERVER['HTTP_AUTH_KEY'])){
+    $headerAuthKey = $_SERVER['HTTP_AUTH_KEY'];
+}else{
+    $headerAuthKey = "";
+}
 
-// get posted data
+//instantiate OAuthSimulation
+$OAuthSimulation = new OAuthSimulation($headerAuthKey);
+
+//make sure request is authorized
+if(!$OAuthSimulation->validateAuthKey()){
+    // set response code - 403 forbbiden
+    http_response_code(403);
+ 
+    // tell the user
+    echo json_encode(array("error" => "Unauthorized request"));
+}else {
+    // get posted data
 $data = json_decode(file_get_contents("php://input"));
 // $data = file_get_contents("php://input");
 
@@ -29,7 +50,7 @@ if(
     
     $result = $searchProductsAttempt->searchProduct();
 
-    // save the code
+       // return response
     if(!isset($result["error"])){
             // set response code - 200 OK
             http_response_code(200);
@@ -38,7 +59,7 @@ if(
             echo json_encode($result);
     }
  
-    // if unable to save the code, tell the user
+    // if unable to get response, tell the user
     else{
  
         // set response code - 503 service unavailable
@@ -56,6 +77,8 @@ else{
     http_response_code(400);
  
     // tell the user
-    echo json_encode(array("message" => "Unable to retrieve data.".$data));
+    echo json_encode(array("message" => "Unable to retrieve required request data."));
+}
+
 }
 ?>
