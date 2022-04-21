@@ -116,16 +116,60 @@ Then clone this repository in htdocs folder
 ## Documentation
 All requests are made using JSON format
 
-**Get all products **
-POST http://bsaletestapisamuelea-env.eba-bm2h4qb2.us-east-2.elasticbeanstalk.com/product/getAllProducts.php
+**Get all products**
 
 Enpoint that fetch all products in table with pagination
 
-```
-    {\"data\":[{\"id\":\"50\",\"name\":\"SPRITE 2 Lt\",\"url_image\":\"https:\\/\\/dojiw2m9tvv09.cloudfront.net\\/11132\\/product\\/sprite-2lt4365.jpg\",\"price\":\"1800\",\"discount\":\"0\",\"category\":\"4\"},{\"id\":\"48\",\"name\":\"SPRITE 1 1\\/2 Lts\",\"url_image\":\"https:\\/\\/dojiw2m9tvv09.cloudfront.net\\/11132\\/product\\/sprite-lata-33cl5575.jpg\",\"price\":\"1500\",\"discount\":\"0\",\"category\":\"4\"},{\"id\":\"33\",\"name\":\"RON PAMPERO ANIVERSARIO\",\"url_image\":\"https:\\/\\/dojiw2m9tvv09.cloudfront.net\\/11132\\/product\\/ron_pampero_aniversario0311.jpg\",\"price\":\"20000\",\"discount\":\"15\",\"category\":\"3\"},{\"id\":\"32\",\"name\":\"RON PAMPERO\",\"url_image\":\"https:\\/\\/dojiw2m9tvv09.cloudfront.net\\/11132\\/product\\/pampero-especial0296.jpg\",\"price\":\"5490\",\"discount\":\"20\",\"category\":\"3\"},{\"id\":\"39\",\"name\":\"RON MITJANS\",\"url_image\":\"https:\\/\\/dojiw2m9tvv09.cloudfront.net\\/11132\\/product\\/mitjan6396.jpg\",\"price\":\"2990\",\"discount\":\"0\",\"category\":\"3\"},{\"id\":\"31\",\"name\":\"RON HAVANA ESPECIAL\",\"url_image\":\"https:\\/\\/dojiw2m9tvv09.cloudfront.net\\/11132\\/product\\/havanaespecial9768.jpg\",\"price\":\"5990\",\"discount\":\"20\",\"category\":\"3\"},{\"id\":\"30\",\"name\":\"RON HAVANA A\ÑEJO RESERVA\",\"url_image\":\"https:\\/\\/dojiw2m9tvv09.cloudfront.net\\/11132\\/product\\/havanaan-ejo9750.jpg\",\"price\":\"6990\",\"discount\":\"0\",\"category\":\"3\"},{\"id\":\"29\",\"name\":\"RON FLOR DE CA\ÑA 5 A\ÑOS\",\"url_image\":\"https:\\/\\/dojiw2m9tvv09.cloudfront.net\\/11132\\/product\\/flor59677.jpg\",\"price\":\"4590\",\"discount\":\"0\",\"category\":\"3\"},{\"id\":\"28\",\"name\":\"RON FLOR DE CA\ÑA 4 A\ÑOS\",\"url_image\":\"https:\\/\\/dojiw2m9tvv09.cloudfront.net\\/11132\\/product\\/flor49664.jpg\",\"price\":\"3990\",\"discount\":\"0\",\"category\":\"3\"},{\"id\":\"38\",\"name\":\"RON BOTRAN A\ÑEJO 5 A\ÑOS\",\"url_image\":\"https:\\/\\/dojiw2m9tvv09.cloudfront.net\\/11132\\/product\\/ronbotran9337.jpg\",\"price\":\"4990\",\"discount\":\"0\",\"category\":\"3\"}],\"records\":\"10\",\"page\":\"1\",\"pages\":6,\"total\":\"57\",\"limit\":0,\"first\":1,\"previous\":1,\"next\":2,\"last\":6,\"start\":1,\"end\":6}"
-```
+POST http://bsaletestapisamuelea-env.eba-bm2h4qb2.us-east-2.elasticbeanstalk.com/product/getAllProducts.php
 
 
+```
+{
+    "data": [
+        {
+            "id": "50",
+            "name": "SPRITE 2 Lt",
+            "url_image": "https://dojiw2m9tvv09.cloudfront.net/11132/product/sprite-2lt4365.jpg",
+            "price": "1800",
+            "discount": "0",
+            "category": "4"
+        },
+        {
+            "id": "48",
+            "name": "SPRITE 1 1/2 Lts",
+            "url_image": "https://dojiw2m9tvv09.cloudfront.net/11132/product/sprite-lata-33cl5575.jpg",
+            "price": "1500",
+            "discount": "0",
+            "category": "4"
+        }
+    ],
+    "records": 12,
+    "page": 1,
+    "pages": 5,
+    "total": "57",
+    "limit": 0,
+    "first": 1,
+    "previous": 1,
+    "next": 2,
+    "last": 5,
+    "start": 1,
+    "end": 5
+}
+```
+**data** : Data set with products limited by records size limit.
+**records**: Amount of records returned by query.
+**page**: Current page of the array returned.
+**pages** : Number of pages returned by query. It's total of records in data base divided by records limit.
+**total**: Total of records in the table.
+**limit**: Set a botom limit for queries.
+**first**: First pague of the pagination.
+**previous**: Previous pague of the pagination result set.
+**next**: Next page ot the pagination result set.
+**last**: Last page ot the pagination result set.
+**start**: Start of the pagination result set, principally used as auxiliar.
+**end**: End of the pagination result set,principally used as auxiliar.
+
+All keys are recaled in every request.
 
 Have fun!
 
