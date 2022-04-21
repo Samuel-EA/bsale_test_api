@@ -4,15 +4,13 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Auth-Key");
 
-if($_SERVER["REQUEST_METHOD"] == "OPTIONS"){
+if($_SERVER["REQUEST_METHOD"] === "OPTIONS"){
     // set response code - 200 OK
     http_response_code(200);
     return 0;
 }else{
-    
-
     // import database connection
     require_once '../config/database.php';
     
