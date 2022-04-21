@@ -15,7 +15,7 @@ Create a web store that displays products grouped by category using available da
 All requests are made using JSON format
 Please use -H "Auth-Key: bd1cf60a-d96e-417e-8a66-ceade5d684b9" in every request in order to get authorization to consume API
 
-*Get all products*
+## Get all products
 
 Enpoint that fetch all products in table with pagination
 
@@ -95,7 +95,7 @@ POST http://bsaletestapisamuelea-env.eba-bm2h4qb2.us-east-2.elasticbeanstalk.com
 All keys are recalculated in every request.
 
 
-*Get products by category*
+## Get products by category
 
 Enpoint that fetch products in table filtered by category.
 
@@ -177,7 +177,59 @@ POST http://bsaletestapisamuelea-env.eba-bm2h4qb2.us-east-2.elasticbeanstalk.com
 All keys are recalculated in every request.
 
 
-*Get products by search word*
+## Get category list
+
+Enpoint that fetch list of categories.
+
+GET http://bsaletestapisamuelea-env.eba-bm2h4qb2.us-east-2.elasticbeanstalk.com/category/getCategories.php
+
+**Request Example**
+
+```
+    curl -X GET http://bsaletestapisamuelea-env.eba-bm2h4qb2.us-east-2.elasticbeanstalk.com/category/getCategories.php
+   -H "Accept: application/json" -H "Content-Type: application/json"
+   -H "Auth-Key: bd1cf60a-d96e-417e-8a66-ceade5d684b9"
+```
+
+
+**Response Example**
+```
+{
+    "data": [
+        {
+            "id": "4",
+            "name": "bebida"
+        },
+        {
+            "id": "1",
+            "name": "bebida energetica"
+        },
+        {
+            "id": "6",
+            "name": "cerveza"
+        },
+        {
+            "id": "2",
+            "name": "pisco"
+        },
+        {
+            "id": "3",
+            "name": "ron"
+        },
+        {
+            "id": "5",
+            "name": "snack"
+        },
+        {
+            "id": "7",
+            "name": "vodka"
+        }
+    ]
+}
+```
+**data** : Data set with with all categiries listed ASC.
+
+## Get products by search word
 
 Enpoint search products by keyword.
 
