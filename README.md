@@ -15,6 +15,8 @@ Create a web store that displays products grouped by category using available da
 All requests are made using JSON format
 Please use -H "Auth-Key: bd1cf60a-d96e-417e-8a66-ceade5d684b9" in every request in order to get authorization to consume API
 
+This repository has two branches use dev to coding new and risky code, never touch main juste sent pull request when dev is stable to merge changes
+
 ## Get all products
 
 Enpoint that fetch all products in table with pagination
