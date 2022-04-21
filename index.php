@@ -19,7 +19,7 @@
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-    <title>BSALE TEST FRONTEND</title>
+    <title>BSALE TEST API</title>
 </head>
 
 <body>
@@ -34,7 +34,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">BSALE API DOCUMENTATION</a> Samuel EA</a>
+                        <a class="nav-link active" aria-current="page" href="#">BSALE API DOCUMENTATION</a> Samuel
+                        EA</a>
                     </li>
                 </ul>
             </div>
@@ -48,12 +49,10 @@
         <ol class="breadcrumb">
             <li id="results" class="breadcrumb-item"></li>
         </ol>
-        <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3">
-            <pre>
-                <code>&lt;p&gt;Sample text here...&lt;/p&gt;
-                    &lt;p&gt;And another line of sample text here...&lt;/p&gt;
-                </code>
-            </pre>
+        <div class="text-center">
+            <p>To see documentation please visit <a target="_blank"
+                    href="https://github.com/Samuel-EA/bsale_test_api/blob/main/README.md"> GitHub Repository
+                    Documentation</a></p>
         </div>
         <br>
         <br>
