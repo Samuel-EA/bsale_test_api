@@ -9,81 +9,83 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 if($_SERVER["REQUEST_METHOD"] == "OPTIONS"){
     // set response code - 200 OK
     http_response_code(200);
-}
-
-// import database connection
-require_once '../config/database.php';
- 
-// import search object
-require_once '../objects/productSearch.php';
-
-// import AUTH_KEY object
-require_once '../resources/OAuthSimulation.php';
-
-//instantiate database connection
-$database = new DatabaseBsale();
-$db = $database->getConnection();
-
-//get AUTH_KEY
-if(isset($_SERVER['HTTP_AUTH_KEY'])){
-    $headerAuthKey = $_SERVER['HTTP_AUTH_KEY'];
+    return 0;
 }else{
-    $headerAuthKey = "";
-}
 
-//instantiate OAuthSimulation
-$OAuthSimulation = new OAuthSimulation($headerAuthKey);
-
-//make sure request is authorized
-if(!$OAuthSimulation->validateAuthKey()){
-    // set response code - 403 forbbiden
-    http_response_code(403);
- 
-    // tell the user
-    echo json_encode(array("error" => "Unauthorized request"));
-}else {
-    // get posted data
-$data = json_decode(file_get_contents("php://input"));
-// $data = file_get_contents("php://input");
-
-// make sure data is not empty
-if(
-    !empty($data) &&
-    $data != null
-){
-    $searchProductsAttempt = new Product($db,"product",$data->records,$data->page,$data->search);
+    // import database connection
+    require_once '../config/database.php';
     
-    $result = $searchProductsAttempt->searchProduct();
+    // import search object
+    require_once '../objects/productSearch.php';
 
-       // return response
-    if(!isset($result["error"])){
-            // set response code - 200 OK
-            http_response_code(200);
- 
+    // import AUTH_KEY object
+    require_once '../resources/OAuthSimulation.php';
+
+    //instantiate database connection
+    $database = new DatabaseBsale();
+    $db = $database->getConnection();
+
+    //get AUTH_KEY
+    if(isset($_SERVER['HTTP_AUTH_KEY'])){
+        $headerAuthKey = $_SERVER['HTTP_AUTH_KEY'];
+    }else{
+        $headerAuthKey = "";
+    }
+
+    //instantiate OAuthSimulation
+    $OAuthSimulation = new OAuthSimulation($headerAuthKey);
+
+    //make sure request is authorized
+    if(!$OAuthSimulation->validateAuthKey()){
+        // set response code - 403 forbbiden
+        http_response_code(403);
+    
+        // tell the user
+        echo json_encode(array("error" => "Unauthorized request"));
+    }else {
+        // get posted data
+    $data = json_decode(file_get_contents("php://input"));
+    // $data = file_get_contents("php://input");
+
+    // make sure data is not empty
+    if(
+        !empty($data) &&
+        $data != null
+    ){
+        $searchProductsAttempt = new Product($db,"product",$data->records,$data->page,$data->search);
+        
+        $result = $searchProductsAttempt->searchProduct();
+
+        // return response
+        if(!isset($result["error"])){
+                // set response code - 200 OK
+                http_response_code(200);
+    
+                // tell the user
+                echo json_encode($result);
+        }
+    
+        // if unable to get response, tell the user
+        else{
+    
+            // set response code - 503 service unavailable
+            http_response_code(503);
+    
             // tell the user
             echo json_encode($result);
+        }
     }
- 
-    // if unable to get response, tell the user
+    
+    // tell the user data is incomplete
     else{
- 
-        // set response code - 503 service unavailable
-        http_response_code(503);
- 
+    
+        // set response code - 400 bad request
+        http_response_code(400);
+    
         // tell the user
-        echo json_encode($result);
+        echo json_encode(array("message" => "Unable to retrieve required request data."));
     }
-}
- 
-// tell the user data is incomplete
-else{
- 
-    // set response code - 400 bad request
-    http_response_code(400);
- 
-    // tell the user
-    echo json_encode(array("message" => "Unable to retrieve required request data."));
-}
 
+    }
 }
 ?>
