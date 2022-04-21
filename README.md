@@ -122,6 +122,19 @@ Enpoint that fetch all products in table with pagination
 
 POST http://bsaletestapisamuelea-env.eba-bm2h4qb2.us-east-2.elasticbeanstalk.com/product/getAllProducts.php
 
+**Request Example**
+
+```
+    curl -X POST http://bsaletestapisamuelea-env.eba-bm2h4qb2.us-east-2.elasticbeanstalk.com/product/getAllProducts.php
+   -H "Accept: application/json" -H "Content-Type: application/json"
+   -H "Auth-Key: bd1cf60a-d96e-417e-8a66-ceade5d684b9"
+   -d '{ "records" : "10", "page": "1" }'
+```
+
+**records**: limit of records per page. 
+
+**page**: Set current page in pagination to recalculate pagination parameters.
+
 
 ```
 {
@@ -157,19 +170,30 @@ POST http://bsaletestapisamuelea-env.eba-bm2h4qb2.us-east-2.elasticbeanstalk.com
 }
 ```
 **data** : Data set with products limited by records size limit.
+
 **records**: Amount of records returned by query.
+
 **page**: Current page of the array returned.
+
 **pages** : Number of pages returned by query. It's total of records in data base divided by records limit.
+
 **total**: Total of records in the table.
+
 **limit**: Set a botom limit for queries.
+
 **first**: First pague of the pagination.
+
 **previous**: Previous pague of the pagination result set.
+
 **next**: Next page ot the pagination result set.
+
 **last**: Last page ot the pagination result set.
+
 **start**: Start of the pagination result set, principally used as auxiliar.
+
 **end**: End of the pagination result set,principally used as auxiliar.
 
-All keys are recaled in every request.
+All keys are recalculated in every request.
 
 Have fun!
 
