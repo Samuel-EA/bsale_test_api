@@ -1,6 +1,6 @@
 # Welcome
 
-Welcome to bsale frontend.
+Welcome to bsale backend.
 
 #Objetive
 
